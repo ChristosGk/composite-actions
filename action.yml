@@ -60,11 +60,6 @@ runs:
       run: python -m unittest --verbose --failfast
       shell: bash
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: ${{ github.event.repository.name }}
-        path: .
-
     - name: Install cosign
       if: github.event_name != 'pull_request'
       uses: sigstore/cosign-installer@7e0881f8fe90b25e305bbf0309761e9314607e25
