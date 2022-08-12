@@ -20,7 +20,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Set up Python ${{ inputs.PYTHON_VERSION }}
       uses: actions/setup-python@v4.2.0
@@ -78,7 +80,7 @@ runs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
-        password: ${{ inputs.password }}
+        password: ${{ inputs.PASSWORD }}
 
     - name: Extract Docker metadata
       id: meta
@@ -88,7 +90,7 @@ runs:
 
     - name: Build and push Docker image
       id: build-and-push
-      uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc # uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
       with:
         context: .
         push: ${{ github.event_name != 'pull_request' }}
