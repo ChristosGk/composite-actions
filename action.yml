@@ -5,10 +5,10 @@ inputs:
     description: The version of Python to use
     required: true
     default: 3.x
-  RUN_UNIT_TESTS:
-    description: Set to true to run unit tests
-    required: false
-    default: false
+#  RUN_UNIT_TESTS:
+#    description: Set to true to run unit tests
+#    required: false
+#    default: false
   PASSWORD:
      description: Password for docker
      required: true
@@ -32,8 +32,8 @@ runs:
     - name: Install requirements
       run: |
         pip install -r requirements.txt
-        pip install flake8
-        pip install pylint
+#        pip install flake8
+#        pip install pylint
       shell: bash
 
     - name: Identify project files
@@ -47,18 +47,18 @@ runs:
         fi
       shell: bash
 
-    - name: flake8
-      run: flake8 --ignore=F841,F811,F541,F405,F403,F401,E501,E231,E126,E262,W504,W293,W291,W605,W503,W391 ${{ steps.project_files.outputs.files }}
-      shell: bash
-
-    - name: pylint
-      run: pylint --errors-only --disable=C0301 --disable=E0102 --disable=E1136 ${{ steps.project_files.outputs.files }}
-      shell: bash
-
-    - name: unit tests
-      if: ${{ inputs.RUN_UNIT_TESTS == false }}
-      run: python -m unittest --verbose --failfast
-      shell: bash
+#    - name: flake8
+#      run: flake8 --ignore=F841,F811,F541,F405,F403,F401,E501,E231,E126,E262,W504,W293,W291,W605,W503,W391 ${{ steps.project_files.outputs.files }}
+#      shell: bash
+#
+#    - name: pylint
+#      run: pylint --errors-only --disable=C0301 --disable=E0102 --disable=E1136 ${{ steps.project_files.outputs.files }}
+#      shell: bash
+#
+#    - name: unit tests
+#      if: ${{ inputs.RUN_UNIT_TESTS == false }}
+#      run: python -m unittest --verbose --failfast
+#      shell: bash
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
